@@ -1,0 +1,95 @@
+[
+  {
+    "id": "c1",
+    "title": "Software Engineer",
+    "slug": "software-engineer",
+    "department": "Software Engineering",
+    "location": "Sri Lanka / Remote",
+    "employmentType": "Full Time",
+    "experienceLevel": "Junior / Mid Level",
+    "shortDescription": "Join our engineering team and build modern digital solutions.",
+    "description": "Evox Technology is hiring a Software Engineer to design, build, and improve web and mobile products for clients worldwide. You will work with the engineering team on delivery and on internal R&D.",
+    "responsibilities": [
+      "Develop modern web applications",
+      "Work with the engineering team",
+      "Participate in R&D activities"
+    ],
+    "requirements": [
+      "Strong programming fundamentals",
+      "Knowledge of JavaScript",
+      "Understanding of software development"
+    ],
+    "skills": ["React", ".NET", "PostgreSQL", "Git"],
+    "preferredSkills": ["TypeScript", "Azure"],
+    "benefits": ["Professional development", "R&D opportunities"],
+    "salary": "",
+    "applicationMethod": "email",
+    "applicationEmail": "info@evoxtech.com",
+    "applicationUrl": "",
+    "applicationInstructions": "Send your CV and a short note about a product you have shipped.",
+    "postedDate": "2026-09-29",
+    "applicationDeadline": "2026-10-30",
+    "status": "Published",
+    "featured": true
+  },
+  {
+    "id": "c2",
+    "title": "AI Research Engineer",
+    "slug": "ai-research-engineer",
+    "department": "Research & Development",
+    "location": "Colombo",
+    "employmentType": "Full Time",
+    "experienceLevel": "Mid Level",
+    "shortDescription": "Prototype applied AI systems and help turn research into products.",
+    "description": "Work with the R&D group on applied machine learning, evaluation, and the path from experiment to a production feature.",
+    "responsibilities": [
+      "Build and evaluate model prototypes",
+      "Document findings for the engineering team",
+      "Support deployment of selected models"
+    ],
+    "requirements": [
+      "Experience with Python and machine learning libraries",
+      "Ability to explain technical trade-offs clearly"
+    ],
+    "skills": ["Python", "TensorFlow", "PostgreSQL"],
+    "preferredSkills": ["MLOps", "Kubernetes"],
+    "benefits": ["Research time", "Conference support"],
+    "salary": "Discussed during interview",
+    "applicationMethod": "form",
+    "applicationEmail": "",
+    "applicationUrl": "",
+    "applicationInstructions": "Tell us about one model or system you have taken beyond a notebook.",
+    "postedDate": "2026-09-15",
+    "applicationDeadline": "2026-11-15",
+    "status": "Published",
+    "featured": false
+  },
+  {
+    "id": "c3",
+    "title": "Product Designer",
+    "slug": "product-designer",
+    "department": "Design",
+    "location": "Remote",
+    "employmentType": "Contract",
+    "experienceLevel": "Senior",
+    "shortDescription": "Shape product interfaces for Evox client platforms.",
+    "description": "This contract role partners with engineering on interface design, prototypes, and design quality for active products.",
+    "responsibilities": [
+      "Design end-to-end flows for web products",
+      "Prepare prototypes for engineering handoff"
+    ],
+    "requirements": ["A portfolio of shipped product work"],
+    "skills": ["Figma", "Design systems"],
+    "preferredSkills": [],
+    "benefits": [],
+    "salary": "",
+    "applicationMethod": "url",
+    "applicationEmail": "",
+    "applicationUrl": "https://www.evoxtech.com",
+    "applicationInstructions": "",
+    "postedDate": "2026-06-01",
+    "applicationDeadline": "2026-08-01",
+    "status": "Closed",
+    "featured": false
+  }
+]

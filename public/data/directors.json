@@ -1,0 +1,38 @@
+[
+  {
+    "id": "d1",
+    "name": "Roshan Perera",
+    "designation": "Managing Director & CEO",
+    "image": "/images/directors/director-1.jpg",
+    "bio": "Roshan founded Evox Technology in 2015 with a vision to deliver world-class software solutions. With over 15 years of experience in enterprise architecture, he leads the company's strategic direction and innovation initiatives.",
+    "displayOrder": 1,
+    "active": true
+  },
+  {
+    "id": "d2",
+    "name": "Nimal Fernando",
+    "designation": "Chief Technology Officer",
+    "image": "/images/directors/director-2.jpg",
+    "bio": "Nimal oversees all technology decisions at Evox. He brings deep expertise in cloud architecture, microservices, and AI-driven systems, having previously led engineering teams at leading tech companies.",
+    "displayOrder": 2,
+    "active": true
+  },
+  {
+    "id": "d3",
+    "name": "Samanthi Jayawardena",
+    "designation": "Director of Operations",
+    "image": "/images/directors/director-3.jpg",
+    "bio": "Samanthi manages day-to-day operations and client relations. Her background in project management and process optimization ensures every Evox project is delivered on time and to the highest standard.",
+    "displayOrder": 3,
+    "active": true
+  },
+  {
+    "id": "d4",
+    "name": "Tharindu Wickramasinghe",
+    "designation": "Director of Engineering",
+    "image": "/images/directors/director-4.jpg",
+    "bio": "Tharindu leads the engineering division with a focus on scalable, secure, and maintainable systems. He is passionate about developer experience and building high-performance teams.",
+    "displayOrder": 4,
+    "active": true
+  }
+]

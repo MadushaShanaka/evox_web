@@ -1,0 +1,74 @@
+[
+  {
+    "id": "p1",
+    "title": "Smart Retail POS System",
+    "description": "A comprehensive point-of-sale system with inventory management, real-time analytics, and multi-store support. Built for retail chains to streamline operations and gain actionable insights.",
+    "image": "/images/projects/project-1.jpg",
+    "technologies": ["React", "Node.js", "PostgreSQL", "AWS"],
+    "industry": "Retail",
+    "status": "completed",
+    "url": "https://example.com/pos",
+    "featured": true,
+    "displayOrder": 1
+  },
+  {
+    "id": "p2",
+    "title": "Healthcare Patient Portal",
+    "description": "A secure patient portal enabling appointment scheduling, telemedicine consultations, electronic health records, and prescription management for hospitals and clinics.",
+    "image": "/images/projects/project-2.jpg",
+    "technologies": ["Vue.js", "Express", "MongoDB", "WebRTC"],
+    "industry": "Healthcare",
+    "status": "completed",
+    "url": "https://example.com/healthcare",
+    "featured": true,
+    "displayOrder": 2
+  },
+  {
+    "id": "p3",
+    "title": "FinTech Trading Platform",
+    "description": "A real-time trading platform with live market data, portfolio analytics, automated trading bots, and risk management tools for institutional investors.",
+    "image": "/images/projects/project-3.jpg",
+    "technologies": ["Next.js", "Python", "Redis", "Kubernetes"],
+    "industry": "Finance",
+    "status": "in-progress",
+    "url": "https://example.com/fintech",
+    "featured": false,
+    "displayOrder": 3
+  },
+  {
+    "id": "p4",
+    "title": "AI-Powered Chatbot Suite",
+    "description": "An enterprise-grade chatbot platform with NLP capabilities, multi-language support, CRM integration, and analytics dashboard for customer service automation.",
+    "image": "/images/projects/project-4.jpg",
+    "technologies": ["React", "TensorFlow", "FastAPI", "Docker"],
+    "industry": "Technology",
+    "status": "completed",
+    "url": "https://example.com/chatbot",
+    "featured": true,
+    "displayOrder": 4
+  },
+  {
+    "id": "p5",
+    "title": "Smart City IoT Dashboard",
+    "description": "A centralized IoT monitoring dashboard for smart city infrastructure — traffic, energy, waste management, and environmental sensors with predictive analytics.",
+    "image": "/images/projects/project-5.jpg",
+    "technologies": ["Angular", "Go", "InfluxDB", "MQTT"],
+    "industry": "Government",
+    "status": "planned",
+    "url": "https://example.com/smartcity",
+    "featured": false,
+    "displayOrder": 5
+  },
+  {
+    "id": "p6",
+    "title": "E-Learning Management System",
+    "description": "A full-featured LMS with course creation, live streaming, gamification, progress tracking, and certification management for educational institutions.",
+    "image": "/images/projects/project-6.jpg",
+    "technologies": ["React", "Node.js", "MongoDB", "Socket.io"],
+    "industry": "Education",
+    "status": "completed",
+    "url": "https://example.com/lms",
+    "featured": false,
+    "displayOrder": 6
+  }
+]
