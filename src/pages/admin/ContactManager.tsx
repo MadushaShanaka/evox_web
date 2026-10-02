@@ -4,6 +4,7 @@ import { useContent } from '@/context/ContentContext';
 import type { SocialMedia } from '@/types';
 import { TextField, Toggle } from '@/components/ui/Field';
 import { useToast } from '@/components/ui/Modal';
+import { reportProjectSave } from '@/lib/storage';
 
 export function ContactManager() {
   const { data, updateSocial } = useContent();
@@ -17,8 +18,7 @@ export function ContactManager() {
   if (!data || !form) return null;
 
   const handleSave = () => {
-    updateSocial(form);
-    showToast('Contact information saved');
+    void reportProjectSave(() => updateSocial(form), showToast, 'Contact information saved.');
   };
 
   return (

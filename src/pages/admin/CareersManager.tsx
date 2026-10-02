@@ -5,6 +5,7 @@ import { ConfirmDialog, useToast } from '@/components/ui/Modal';
 import { SelectField, TextArea, TextField, Toggle } from '@/components/ui/Field';
 import { usePathname, navigate } from '@/lib/nav';
 import { formatCareerDate, methodLabel, slugify } from '@/lib/careers';
+import { reportProjectSave } from '@/lib/storage';
 import type { ApplicationMethod, Career, CareerStatus } from '@/types';
 
 const emptyCareer = (): Career => ({
@@ -72,8 +73,7 @@ function CareerList() {
   }
 
   const save = (next: Career[], message: string) => {
-    updateCareers(next);
-    showToast(message);
+    void reportProjectSave(() => updateCareers(next), showToast, message);
   };
 
   const duplicate = (job: Career) => {
@@ -381,9 +381,13 @@ function CareerForm({ careerId }: { careerId: string | null }) {
       benefits: cleanList(career.benefits),
     };
     const exists = data.careers.some((job) => job.id === next.id);
-    updateCareers(exists ? data.careers.map((job) => (job.id === next.id ? next : job)) : [next, ...data.careers]);
-    showToast(exists ? 'Career updated' : 'Career added');
-    window.setTimeout(() => navigate('/admin/careers'), 400);
+    void reportProjectSave(
+      () => updateCareers(exists ? data.careers.map((job) => (job.id === next.id ? next : job)) : [next, ...data.careers]),
+      showToast,
+      exists ? 'Career updated.' : 'Career added.',
+    ).then((ok) => {
+      if (ok) window.setTimeout(() => navigate('/admin/careers'), 400);
+    });
   };
 
   const addSkill = (kind: 'skills' | 'preferredSkills', value: string, clear: () => void) => {

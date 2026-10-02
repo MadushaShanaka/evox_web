@@ -4,7 +4,7 @@ import { useContent } from '@/context/ContentContext';
 import type { WebsiteSettings } from '@/types';
 import { TextField, TextArea } from '@/components/ui/Field';
 import { useToast } from '@/components/ui/Modal';
-import { exportData, importData } from '@/lib/storage';
+import { exportData, importData, reportProjectSave } from '@/lib/storage';
 
 export function SettingsManager() {
   const { data, updateSettings, replaceData, resetData } = useContent();
@@ -18,8 +18,7 @@ export function SettingsManager() {
   if (!data || !form) return null;
 
   const handleSave = () => {
-    updateSettings(form);
-    showToast('Settings saved');
+    void reportProjectSave(() => updateSettings(form), showToast, 'Settings saved.');
   };
 
   const handleExport = () => {
@@ -31,17 +30,15 @@ export function SettingsManager() {
     const file = e.target.files?.[0];
     if (!file) return;
     importData(file)
-      .then((imported) => {
-        replaceData(imported);
-        showToast('Data imported successfully');
-      })
+      .then((imported) => reportProjectSave(() => replaceData(imported), showToast, 'Data imported.'))
       .catch(() => showToast('Invalid JSON file', 'error'));
   };
 
   const handleReset = () => {
-    if (confirm('Reset all content to default values? This cannot be undone.')) {
-      resetData();
-      showToast('Data reset to defaults');
+    if (confirm('Reload content from the project files? Unsaved edits on this page will be discarded.')) {
+      resetData()
+        .then(() => showToast('Content reloaded from the project files.'))
+        .catch(() => showToast('Could not reload the project files.', 'error'));
     }
   };
 
@@ -120,7 +117,7 @@ export function SettingsManager() {
             onClick={handleReset}
             className="btn-danger"
           >
-            <RotateCcw size={16} /> Reset to Defaults
+            <RotateCcw size={16} /> Reload project files
           </button>
         </div>
       </div>

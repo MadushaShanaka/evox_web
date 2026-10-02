@@ -19,9 +19,20 @@
       "Knowledge of JavaScript",
       "Understanding of software development"
     ],
-    "skills": ["React", ".NET", "PostgreSQL", "Git"],
-    "preferredSkills": ["TypeScript", "Azure"],
-    "benefits": ["Professional development", "R&D opportunities"],
+    "skills": [
+      "React",
+      ".NET",
+      "PostgreSQL",
+      "Git"
+    ],
+    "preferredSkills": [
+      "TypeScript",
+      "Azure"
+    ],
+    "benefits": [
+      "Professional development",
+      "R&D opportunities"
+    ],
     "salary": "",
     "applicationMethod": "email",
     "applicationEmail": "info@evoxtech.com",
@@ -51,9 +62,19 @@
       "Experience with Python and machine learning libraries",
       "Ability to explain technical trade-offs clearly"
     ],
-    "skills": ["Python", "TensorFlow", "PostgreSQL"],
-    "preferredSkills": ["MLOps", "Kubernetes"],
-    "benefits": ["Research time", "Conference support"],
+    "skills": [
+      "Python",
+      "TensorFlow",
+      "PostgreSQL"
+    ],
+    "preferredSkills": [
+      "MLOps",
+      "Kubernetes"
+    ],
+    "benefits": [
+      "Research time",
+      "Conference support"
+    ],
     "salary": "Discussed during interview",
     "applicationMethod": "form",
     "applicationEmail": "",
@@ -78,8 +99,13 @@
       "Design end-to-end flows for web products",
       "Prepare prototypes for engineering handoff"
     ],
-    "requirements": ["A portfolio of shipped product work"],
-    "skills": ["Figma", "Design systems"],
+    "requirements": [
+      "A portfolio of shipped product work"
+    ],
+    "skills": [
+      "Figma",
+      "Design systems"
+    ],
     "preferredSkills": [],
     "benefits": [],
     "salary": "",

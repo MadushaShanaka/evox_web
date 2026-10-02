@@ -14,7 +14,7 @@ import type { Director } from '@/types';
 import { Modal, ConfirmDialog, useToast } from '@/components/ui/Modal';
 import { TextField, TextArea, Toggle } from '@/components/ui/Field';
 import { ImageUpload } from '@/components/ui/ImageUpload';
-import { withBase } from '@/lib/nav';
+import { reportProjectSave } from '@/lib/storage';
 
 const emptyDirector: Director = {
   id: '',
@@ -55,15 +55,23 @@ export function DirectorsManager() {
     const updated = exists
       ? data.directors.map((d) => (d.id === editing.id ? editing : d))
       : [...data.directors, editing];
-    updateDirectors(updated);
-    setModalOpen(false);
-    showToast(exists ? 'Director updated' : 'Director added');
+    void reportProjectSave(
+      () => updateDirectors(updated),
+      showToast,
+      exists ? 'Director updated.' : 'Director added.',
+    ).then((ok) => {
+      if (ok) setModalOpen(false);
+    });
   };
 
   const handleDelete = () => {
     if (!deleteId) return;
-    updateDirectors(data.directors.filter((d) => d.id !== deleteId));
-    showToast('Director deleted');
+    const id = deleteId;
+    void reportProjectSave(
+      () => updateDirectors(data.directors.filter((d) => d.id !== id)),
+      showToast,
+      'Director deleted.',
+    );
   };
 
   const moveDirector = (id: string, dir: 'up' | 'down') => {
@@ -75,12 +83,14 @@ export function DirectorsManager() {
       [sorted[idx], sorted[idx + 1]] = [sorted[idx + 1], sorted[idx]];
     }
     const renumbered = sorted.map((d, i) => ({ ...d, displayOrder: i + 1 }));
-    updateDirectors(renumbered);
+    void reportProjectSave(() => updateDirectors(renumbered), showToast, 'Director order saved.');
   };
 
   const toggleActive = (id: string) => {
-    updateDirectors(
-      data.directors.map((d) => (d.id === id ? { ...d, active: !d.active } : d)),
+    void reportProjectSave(
+      () => updateDirectors(data.directors.map((d) => (d.id === id ? { ...d, active: !d.active } : d))),
+      showToast,
+      'Director updated.',
     );
   };
 
@@ -110,7 +120,7 @@ export function DirectorsManager() {
             {/* Photo */}
             <div className="w-16 h-16 rounded-full bg-surface-muted flex-shrink-0 overflow-hidden flex items-center justify-center">
               {dir.image ? (
-                <img src={withBase(dir.image)} alt="" className="w-full h-full object-cover" />
+                <img src={dir.image} alt="" className="w-full h-full object-cover" />
               ) : (
                 <Users size={24} className="text-faint" />
               )}

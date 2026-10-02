@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
   useCallback,
   type ReactNode,
@@ -17,21 +18,29 @@ import type {
   SocialMedia,
   WebsiteSettings,
 } from '@/types';
-import { fetchSeedData, loadData, saveData } from '@/lib/storage';
+import {
+  fetchSeedData,
+  loadData,
+  clearData,
+  publishSection,
+  migrateBrowserData,
+  ProjectPublishError,
+  type CmsSection,
+} from '@/lib/storage';
 
 interface ContentContextValue {
   data: AppData | null;
   loading: boolean;
-  updateProjects: (projects: Project[]) => void;
-  updateDirectors: (directors: Director[]) => void;
-  updateCareers: (careers: Career[]) => void;
-  updateCompany: (company: CompanyInfo) => void;
-  updateAddress: (address: CompanyAddress) => void;
-  updateBranding: (branding: Branding) => void;
-  updateSocial: (social: SocialMedia) => void;
-  updateSettings: (settings: WebsiteSettings) => void;
-  replaceData: (data: AppData) => void;
-  resetData: () => void;
+  updateProjects: (projects: Project[]) => Promise<void>;
+  updateDirectors: (directors: Director[]) => Promise<void>;
+  updateCareers: (careers: Career[]) => Promise<void>;
+  updateCompany: (company: CompanyInfo) => Promise<void>;
+  updateAddress: (address: CompanyAddress) => Promise<void>;
+  updateBranding: (branding: Branding) => Promise<void>;
+  updateSocial: (social: SocialMedia) => Promise<void>;
+  updateSettings: (settings: WebsiteSettings) => Promise<void>;
+  replaceData: (data: AppData) => Promise<void>;
+  resetData: () => Promise<void>;
 }
 
 const ContentContext = createContext<ContentContextValue | undefined>(undefined);
@@ -39,6 +48,7 @@ const ContentContext = createContext<ContentContextValue | undefined>(undefined)
 export function ContentProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<AppData | null>(null);
   const [loading, setLoading] = useState(true);
+  const dataRef = useRef<AppData | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -46,14 +56,20 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     (async () => {
       try {
         const stored = loadData();
-        if (stored && Array.isArray(stored.careers)) {
-          if (!cancelled) setData(stored);
-          return;
+        if (stored) {
+          try {
+            await migrateBrowserData(stored);
+            clearData();
+          } catch {
+            // Keep the browser copy so the next dev-server refresh can write it.
+          }
         }
+        if (cancelled) return;
         const seed = await fetchSeedData();
-        const next = stored ? { ...stored, careers: seed.careers } : seed;
-        saveData(next);
-        if (!cancelled) setData(next);
+        if (!cancelled) {
+          dataRef.current = seed;
+          setData(seed);
+        }
       } catch {
         if (!cancelled) setData(null);
       } finally {
@@ -66,72 +82,68 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const persist = useCallback((updater: (prev: AppData) => AppData) => {
-    setData((prev) => {
-      if (!prev) return prev;
-      const next = updater(prev);
-      saveData(next);
-      return next;
-    });
+  const commitSection = useCallback(async <K extends CmsSection>(section: K, value: AppData[K]) => {
+    if (!dataRef.current) throw new ProjectPublishError('Content is still loading.');
+    const written = await publishSection(section, value);
+    const current = dataRef.current;
+    if (!current) throw new ProjectPublishError('Content is still loading.');
+    const next = { ...current, [section]: written };
+    dataRef.current = next;
+    setData(next);
   }, []);
 
   const updateProjects = useCallback(
-    (projects: Project[]) => persist((prev) => ({ ...prev, projects })),
-    [persist],
+    async (projects: Project[]) => commitSection('projects', projects),
+    [commitSection],
   );
 
   const updateDirectors = useCallback(
-    (directors: Director[]) => persist((prev) => ({ ...prev, directors })),
-    [persist],
+    async (directors: Director[]) => commitSection('directors', directors),
+    [commitSection],
   );
 
   const updateCareers = useCallback(
-    (careers: Career[]) => persist((prev) => ({ ...prev, careers })),
-    [persist],
+    async (careers: Career[]) => commitSection('careers', careers),
+    [commitSection],
   );
 
   const updateCompany = useCallback(
-    (company: CompanyInfo) => persist((prev) => ({ ...prev, company })),
-    [persist],
+    async (company: CompanyInfo) => commitSection('company', company),
+    [commitSection],
   );
 
   const updateAddress = useCallback(
-    (address: CompanyAddress) => persist((prev) => ({ ...prev, address })),
-    [persist],
+    async (address: CompanyAddress) => commitSection('address', address),
+    [commitSection],
   );
 
   const updateBranding = useCallback(
-    (branding: Branding) => persist((prev) => ({ ...prev, branding })),
-    [persist],
+    async (branding: Branding) => commitSection('branding', branding),
+    [commitSection],
   );
 
   const updateSocial = useCallback(
-    (social: SocialMedia) => persist((prev) => ({ ...prev, social })),
-    [persist],
+    async (social: SocialMedia) => commitSection('social', social),
+    [commitSection],
   );
 
   const updateSettings = useCallback(
-    (settings: WebsiteSettings) => persist((prev) => ({ ...prev, settings })),
-    [persist],
+    async (settings: WebsiteSettings) => commitSection('settings', settings),
+    [commitSection],
   );
 
-  const replaceData = useCallback((newData: AppData) => {
-    setData((prev) => {
-      const next = {
-        ...newData,
-        careers: Array.isArray(newData.careers) ? newData.careers : prev?.careers ?? [],
-      };
-      saveData(next);
-      return next;
-    });
+  const replaceData = useCallback(async (newData: AppData) => {
+    await migrateBrowserData(newData);
+    const seed = await fetchSeedData();
+    dataRef.current = seed;
+    setData(seed);
   }, []);
 
-  const resetData = useCallback(() => {
-    localStorage.removeItem('evox_cms_data');
-    fetchSeedData().then((seed) => {
-      setData(seed);
-      saveData(seed);
-    });
+  const resetData = useCallback(async () => {
+    clearData();
+    const seed = await fetchSeedData();
+    dataRef.current = seed;
+    setData(seed);
   }, []);
 
   return (

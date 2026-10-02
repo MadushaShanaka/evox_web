@@ -4,6 +4,7 @@ import { useContent } from '@/context/ContentContext';
 import type { CompanyInfo } from '@/types';
 import { TextField, TextArea } from '@/components/ui/Field';
 import { useToast } from '@/components/ui/Modal';
+import { reportProjectSave } from '@/lib/storage';
 
 export function CompanyInfoManager() {
   const { data, updateCompany } = useContent();
@@ -17,8 +18,7 @@ export function CompanyInfoManager() {
   if (!data || !form) return null;
 
   const handleSave = () => {
-    updateCompany(form);
-    showToast('Company information saved');
+    void reportProjectSave(() => updateCompany(form), showToast, 'Company information saved.');
   };
 
   return (

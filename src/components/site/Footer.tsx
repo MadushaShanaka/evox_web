@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
 import { useTheme } from '@/context/ThemeContext';
-import { onSiteClick, withBase } from '@/lib/nav';
+import { onSiteClick } from '@/lib/nav';
 
 interface FooterProps {
   onAdminClick: () => void;
@@ -54,7 +54,7 @@ export function Footer({ onAdminClick }: FooterProps) {
       <div className="relative px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <img src={withBase(logo)} alt={company.name} className="w-auto h-10 mb-4" />
+            <img src={logo} alt={company.name} className="w-auto h-10 mb-4" />
             <p className="text-sm leading-relaxed">{company.description}</p>
           </div>
 
@@ -63,7 +63,7 @@ export function Footer({ onAdminClick }: FooterProps) {
             <ul className="space-y-2 text-sm">
               {links.map((link) => (
                 <li key={link.href}>
-                  <a href={withBase(link.href)} onClick={onSiteClick} className="transition-colors hover:text-accent">
+                  <a href={link.href} onClick={onSiteClick} className="transition-colors hover:text-accent">
                     {link.label}
                   </a>
                 </li>

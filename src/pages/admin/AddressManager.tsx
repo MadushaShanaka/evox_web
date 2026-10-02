@@ -4,6 +4,7 @@ import { useContent } from '@/context/ContentContext';
 import type { CompanyAddress } from '@/types';
 import { TextField } from '@/components/ui/Field';
 import { useToast } from '@/components/ui/Modal';
+import { reportProjectSave } from '@/lib/storage';
 
 export function AddressManager() {
   const { data, updateAddress } = useContent();
@@ -17,8 +18,7 @@ export function AddressManager() {
   if (!data || !form) return null;
 
   const handleSave = () => {
-    updateAddress(form);
-    showToast('Address saved');
+    void reportProjectSave(() => updateAddress(form), showToast, 'Address saved.');
   };
 
   const fullAddress = [form.line1, form.line2, form.city, form.province, form.country, form.postalCode]

@@ -15,7 +15,7 @@ import type { Project } from '@/types';
 import { Modal, ConfirmDialog, useToast } from '@/components/ui/Modal';
 import { TextField, TextArea, SelectField, Toggle } from '@/components/ui/Field';
 import { ImageUpload } from '@/components/ui/ImageUpload';
-import { withBase } from '@/lib/nav';
+import { reportProjectSave } from '@/lib/storage';
 
 const emptyProject: Project = {
   id: '',
@@ -62,15 +62,23 @@ export function ProjectsManager() {
     const updated = exists
       ? data.projects.map((p) => (p.id === editing.id ? editing : p))
       : [...data.projects, editing];
-    updateProjects(updated);
-    setModalOpen(false);
-    showToast(exists ? 'Project updated' : 'Project added');
+    void reportProjectSave(
+      () => updateProjects(updated),
+      showToast,
+      exists ? 'Project updated.' : 'Project added.',
+    ).then((ok) => {
+      if (ok) setModalOpen(false);
+    });
   };
 
   const handleDelete = () => {
     if (!deleteId) return;
-    updateProjects(data.projects.filter((p) => p.id !== deleteId));
-    showToast('Project deleted');
+    const id = deleteId;
+    void reportProjectSave(
+      () => updateProjects(data.projects.filter((p) => p.id !== id)),
+      showToast,
+      'Project deleted.',
+    );
   };
 
   const moveProject = (id: string, dir: 'up' | 'down') => {
@@ -82,7 +90,7 @@ export function ProjectsManager() {
       [sorted[idx], sorted[idx + 1]] = [sorted[idx + 1], sorted[idx]];
     }
     const renumbered = sorted.map((p, i) => ({ ...p, displayOrder: i + 1 }));
-    updateProjects(renumbered);
+    void reportProjectSave(() => updateProjects(renumbered), showToast, 'Project order saved.');
   };
 
   const addTech = () => {
@@ -123,7 +131,7 @@ export function ProjectsManager() {
             {/* Image */}
             <div className="w-20 h-20 rounded-lg bg-surface-muted flex-shrink-0 overflow-hidden flex items-center justify-center">
               {project.image ? (
-                <img src={withBase(project.image)} alt="" className="w-full h-full object-cover" />
+                <img src={project.image} alt="" className="w-full h-full object-cover" />
               ) : (
                 <FolderKanban size={24} className="text-faint" />
               )}

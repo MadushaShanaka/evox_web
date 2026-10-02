@@ -4,7 +4,6 @@ import { useContent } from '@/context/ContentContext';
 import type { Director } from '@/types';
 import { Reveal } from '@/components/ui/Reveal';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { withBase } from '@/lib/nav';
 
 function DirectorCard({ director }: { director: Director }) {
   const [loaded, setLoaded] = useState(false);
@@ -23,7 +22,7 @@ function DirectorCard({ director }: { director: Director }) {
             <>
               {!loaded && <div className="absolute inset-0 animate-pulse bg-surface-muted" />}
               <img
-                src={withBase(director.image)}
+                src={director.image}
                 alt={director.name}
                 onLoad={() => setLoaded(true)}
                 onError={() => setFailed(true)}

@@ -1,7 +1,6 @@
 import { useRef, useState, type ChangeEvent } from 'react';
 import { Upload, ImageIcon } from 'lucide-react';
 import { fileToDataUrl } from '@/lib/storage';
-import { withBase } from '@/lib/nav';
 
 interface ImageUploadProps {
   value: string;
@@ -47,7 +46,7 @@ export function ImageUpload({ value, onChange, label, aspectRatio = 'aspect-vide
       >
         {value ? (
           <>
-            <img src={withBase(value)} alt={label} className="h-full w-full object-contain" />
+            <img src={value} alt={label} className="h-full w-full object-contain" />
             <div className="absolute inset-0 flex items-center justify-center bg-ink/0 opacity-0 transition-all group-hover:bg-ink/45 group-hover:opacity-100">
               <span className="flex items-center gap-2 text-sm font-medium text-white">
                 <Upload size={16} /> Replace

@@ -1,37 +1,37 @@
 [
   {
-    "id": "d1",
-    "name": "Roshan Perera",
-    "designation": "Managing Director & CEO",
-    "image": "/images/directors/director-1.jpg",
-    "bio": "Roshan founded Evox Technology in 2015 with a vision to deliver world-class software solutions. With over 15 years of experience in enterprise architecture, he leads the company's strategic direction and innovation initiatives.",
+    "id": "d3",
+    "name": "Shirly Madushanka ",
+    "designation": "Director of Operations",
+    "image": "/images/directors/d3.jpg?v=1790920633948",
+    "bio": "Experienced Software Engineer with a demonstrated history of working in the information technology and services industry. Skilled in JavaScript, Typescript,  Python (Programming Language), PHP, Flutter, Cascading Style Sheets (CSS), and C (Programming Language). Strong engineering professional with a Bachelor's degree focused in Computer Engineering from University of Peradeniya.",
     "displayOrder": 1,
     "active": true
   },
   {
-    "id": "d2",
-    "name": "Nimal Fernando",
-    "designation": "Chief Technology Officer",
-    "image": "/images/directors/director-2.jpg",
-    "bio": "Nimal oversees all technology decisions at Evox. He brings deep expertise in cloud architecture, microservices, and AI-driven systems, having previously led engineering teams at leading tech companies.",
+    "id": "d1",
+    "name": "Induwara Samaranayaka",
+    "designation": "Managing Director & CEO",
+    "image": "/images/directors/d1.jpg?v=1790920633949",
+    "bio": "I'm a Software Engineer with over 2 years of hands-on experience at Thakshana Technologies, working closely with embedded systems in real-world, on-site engineering environments — including UAE-based deployments. My expertise spans low-level programming with C/C++, Python, and C#, along with modern full-stack tools like Node.js and Flutter.\n\nAt Thakshana, I’ve led the development of cross-platform software solutions that interface with STM, FPGA, and Microchip hardware, combining robust back-end APIs with user-centric interfaces. I thrive in Linux-based environments, where performance, reliability, and system integration are paramount.\n\nCurrently pursuing a Master’s in Advanced Software Engineering, I bring a strong foundation in Mechanical Engineering from the University of Moratuwa, with a deep drive to bridge hardware and software through innovative, scalable solutions.",
     "displayOrder": 2,
     "active": true
   },
   {
-    "id": "d3",
-    "name": "Samanthi Jayawardena",
-    "designation": "Director of Operations",
-    "image": "/images/directors/director-3.jpg",
-    "bio": "Samanthi manages day-to-day operations and client relations. Her background in project management and process optimization ensures every Evox project is delivered on time and to the highest standard.",
+    "id": "d2",
+    "name": "Imal Chanaka",
+    "designation": "Chief Technology Officer",
+    "image": "/images/directors/d2.jpg?v=1790920633950",
+    "bio": " Software Engineer with 3+ years of industrial experience across Software Engineering and QA\nfocused roles, working with Java, JavaScript, SQL, .NET, and the MERN stack. A quick learner who thrives in team environments \nand solves technical challenges with creativity and precision. Solid foundation in web development, API integration, and full\nstack problem-solving. Open to opportunities in both Software Engineering and Quality Assurance (QA) positions, bringing a \nstrong eye for detail and a genuine commitment to software quality.",
     "displayOrder": 3,
     "active": true
   },
   {
     "id": "d4",
-    "name": "Tharindu Wickramasinghe",
+    "name": "Madusha Shanaka",
     "designation": "Director of Engineering",
-    "image": "/images/directors/director-4.jpg",
-    "bio": "Tharindu leads the engineering division with a focus on scalable, secure, and maintainable systems. He is passionate about developer experience and building high-performance teams.",
+    "image": "/images/directors/d4.jpg?v=1790920633951",
+    "bio": "Results-driven Software Engineer with nearly 3 years of experience in full-stack development using Java, Spring Framework, Spring MVC, Hibernate, Spring JPA, and JavaScript frameworks. Proficient in designing scalable, high-performance applications, developing complex SQL/PLSQL queries, DB triggers and stored procedures, and building secure RESTful APIs. Skilled in end-to-end live release management using Jenkins pipelines, Linux server operations, and Git-based workflows. Experienced in optimizing system performance through code profiling, query tuning, and root cause analysis. Having experience collaborating in Agile environments and providing reliable software solutions that meet evolving business and technical requirements.",
     "displayOrder": 4,
     "active": true
   }

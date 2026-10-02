@@ -3,7 +3,7 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
 import { useTheme } from '@/context/ThemeContext';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
-import { onSiteClick, usePathname, withBase } from '@/lib/nav';
+import { onSiteClick, usePathname } from '@/lib/nav';
 
 interface NavbarProps {
   onAdminClick: () => void;
@@ -74,8 +74,8 @@ export function Navbar({ onAdminClick }: NavbarProps) {
       }`}
     >
       <nav className={`mx-auto flex max-w-7xl items-center justify-between px-4 transition-[height] duration-300 sm:px-6 lg:px-8 ${scrolled ? 'h-14' : 'h-16'}`}>
-        <a href={withBase('/#home')} onClick={onSiteClick} className="flex items-center min-w-0">
-          <img src={withBase(logo)} alt={data.company.name} className="w-auto h-8 sm:h-9" />
+        <a href="/#home" onClick={onSiteClick} className="flex items-center min-w-0">
+          <img src={logo} alt={data.company.name} className="w-auto h-8 sm:h-9" />
         </a>
 
         <div className="items-center hidden gap-1 lg:flex">
@@ -84,7 +84,7 @@ export function Navbar({ onAdminClick }: NavbarProps) {
             return (
               <a
                 key={link.href}
-                href={withBase(link.href)}
+                href={link.href}
                 onClick={onSiteClick}
                 aria-current={isActive ? 'true' : undefined}
                 className={`group relative px-3 py-2 text-sm font-medium transition-colors hover:text-accent ${
@@ -126,7 +126,7 @@ export function Navbar({ onAdminClick }: NavbarProps) {
             {links.map((link) => (
               <a
                 key={link.href}
-                href={withBase(link.href)}
+                href={link.href}
                 onClick={(event) => {
                   onSiteClick(event);
                   setMobileOpen(false);

@@ -1,7 +1,7 @@
 {
-  "mainLogo": "/images/company/logo.svg",
-  "footerLogo": "/images/company/logo-light.svg",
-  "favicon": "/images/company/favicon.svg",
-  "darkLogo": "/images/company/logo-dark.svg",
-  "lightLogo": "/images/company/logo-light.svg"
+  "mainLogo": "/images/company/main-logo.png?v=1790920633952",
+  "footerLogo": "/images/company/footer-logo.png?v=1790920633953",
+  "favicon": "/images/company/favicon.png?v=1790920633954",
+  "darkLogo": "/images/company/dark-logo.png?v=1790920633956",
+  "lightLogo": "/images/company/light-logo.png?v=1790920633959"
 }

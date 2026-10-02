@@ -1,19 +1,27 @@
 import type { AppData } from '@/types';
-import { withBase } from '@/lib/nav';
 
 const STORAGE_KEY = 'evox_cms_data';
+
+export const CMS_SECTIONS = ['projects', 'directors', 'careers', 'company', 'address', 'branding', 'social', 'settings'] as const;
+export type CmsSection = (typeof CMS_SECTIONS)[number];
+
+async function fetchJson(file: string) {
+  const response = await fetch(`/data/${file}`, { cache: 'no-store' });
+  if (!response.ok) throw new Error(`Failed to load ${file}`);
+  return response.json();
+}
 
 export async function fetchSeedData(): Promise<AppData> {
   const [projects, directors, careers, company, address, branding, social, settings] =
     await Promise.all([
-      fetch(withBase('/data/projects.json')).then((r) => r.json()),
-      fetch(withBase('/data/directors.json')).then((r) => r.json()),
-      fetch(withBase('/data/careers.json')).then((r) => r.json()),
-      fetch(withBase('/data/company.json')).then((r) => r.json()),
-      fetch(withBase('/data/address.json')).then((r) => r.json()),
-      fetch(withBase('/data/branding.json')).then((r) => r.json()),
-      fetch(withBase('/data/social.json')).then((r) => r.json()),
-      fetch(withBase('/data/settings.json')).then((r) => r.json()),
+      fetchJson('projects.json'),
+      fetchJson('directors.json'),
+      fetchJson('careers.json'),
+      fetchJson('company.json'),
+      fetchJson('address.json'),
+      fetchJson('branding.json'),
+      fetchJson('social.json'),
+      fetchJson('settings.json'),
     ]);
 
   return {
@@ -38,8 +46,76 @@ export function loadData(): AppData | null {
   }
 }
 
-export function saveData(data: AppData): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+export class ProjectPublishError extends Error {
+  constructor(message = 'Project files were not written. Run npm run dev and save again.') {
+    super(message);
+    this.name = 'ProjectPublishError';
+  }
+}
+
+async function postCms(url: string, body: unknown): Promise<unknown> {
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+  } catch {
+    throw new ProjectPublishError();
+  }
+
+  if (!response.ok) {
+    let serverError = '';
+    try {
+      const payload = (await response.json()) as { error?: string };
+      if (typeof payload?.error === 'string') serverError = payload.error;
+    } catch {
+      serverError = '';
+    }
+    if (serverError && response.status !== 404) {
+      throw new ProjectPublishError(`Project files were not written. ${serverError}`);
+    }
+    throw new ProjectPublishError();
+  }
+
+  try {
+    return await response.json();
+  } catch {
+    throw new ProjectPublishError();
+  }
+}
+
+export async function publishSection<T>(section: CmsSection, data: T): Promise<T> {
+  const written = await postCms('/__cms/save', { section, data });
+  if (written == null || typeof written !== 'object') throw new ProjectPublishError();
+  return written as T;
+}
+
+export async function migrateBrowserData(data: Partial<AppData>): Promise<void> {
+  const written = await postCms('/__cms/migrate', data);
+  if (written == null || typeof written !== 'object') throw new ProjectPublishError();
+}
+
+export async function reportProjectSave(
+  action: () => Promise<void>,
+  showToast: (message: string, type?: 'success' | 'error') => void,
+  success: string,
+): Promise<boolean> {
+  try {
+    await action();
+    const label = success.endsWith('.') ? success : `${success}.`;
+    showToast(`${label} Files were written into the project.`);
+    return true;
+  } catch (error) {
+    showToast(
+      error instanceof ProjectPublishError
+        ? error.message
+        : 'Project files were not written. Run npm run dev and save again.',
+      'error',
+    );
+    return false;
+  }
 }
 
 export function clearData(): void {

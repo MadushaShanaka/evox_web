@@ -4,7 +4,7 @@ import { useContent } from '@/context/ContentContext';
 import type { Branding } from '@/types';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import { useToast } from '@/components/ui/Modal';
-import { withBase } from '@/lib/nav';
+import { reportProjectSave } from '@/lib/storage';
 
 export function BrandingManager() {
   const { data, updateBranding } = useContent();
@@ -18,8 +18,7 @@ export function BrandingManager() {
   if (!data || !form) return null;
 
   const handleSave = () => {
-    updateBranding(form);
-    showToast('Branding updated');
+    void reportProjectSave(() => updateBranding(form), showToast, 'Branding updated.');
   };
 
   return (
@@ -81,13 +80,13 @@ export function BrandingManager() {
         <p className="text-xs font-semibold text-muted uppercase tracking-wide">Live Preview</p>
         <div className="flex items-center gap-6 flex-wrap">
           <div className="bg-surface rounded-lg px-4 py-3 border border-line">
-            <img src={withBase(form.mainLogo)} alt="Main" className="h-8" />
+            <img src={form.mainLogo} alt="Main" className="h-8" />
           </div>
           <div className="bg-ink rounded-lg px-4 py-3">
-            <img src={withBase(form.footerLogo)} alt="Footer" className="h-8" />
+            <img src={form.footerLogo} alt="Footer" className="h-8" />
           </div>
           <div className="bg-surface rounded-lg p-2 border border-line">
-            <img src={withBase(form.favicon)} alt="Favicon" className="w-8 h-8" />
+            <img src={form.favicon} alt="Favicon" className="w-8 h-8" />
           </div>
         </div>
       </div>

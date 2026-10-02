@@ -1,6 +1,6 @@
 {
-  "email": "info@evoxtech.com",
-  "phone": "+94 11  5678",
+  "email": "info.evoxtechnologies@gmail.com",
+  "phone": "+94 728653454",
   "whatsapp": "+94 77 123 4567",
   "linkedin": "https://www.linkedin.com/company/evoxtech",
   "facebook": "https://www.facebook.com/evoxtech",
@@ -9,11 +9,11 @@
   "github": "https://github.com/evoxtech",
   "other": "",
   "enabled": {
-    "linkedin": true,
-    "facebook": true,
-    "instagram": true,
-    "youtube": true,
-    "github": true,
+    "linkedin": false,
+    "facebook": false,
+    "instagram": false,
+    "youtube": false,
+    "github": false,
     "other": false
   }
 }

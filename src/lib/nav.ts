@@ -1,22 +1,7 @@
 import { useEffect, useState, type MouseEvent } from 'react';
 
-// Path the site is served from, without a trailing slash ('' at the domain root,
-// '/evox_web' on GitHub Pages). Set at build time via Vite's `base` option.
-const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
-
-/** Prefixes a root-relative app path or asset URL with the deployment base. */
-export function withBase(path: string) {
-  return path.startsWith('/') && !path.startsWith('//') ? `${BASE}${path}` : path;
-}
-
-function stripBase(path: string) {
-  if (!BASE) return path;
-  if (path === BASE) return '/';
-  return path.startsWith(`${BASE}/`) ? path.slice(BASE.length) : path;
-}
-
 export function navigate(to: string) {
-  const url = new URL(withBase(to), window.location.origin);
+  const url = new URL(to, window.location.origin);
   const next = `${url.pathname}${url.search}${url.hash}`;
   const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
   if (current !== next) {
@@ -31,10 +16,10 @@ export function navigate(to: string) {
 }
 
 export function usePathname() {
-  const [path, setPath] = useState(() => stripBase(window.location.pathname));
+  const [path, setPath] = useState(() => window.location.pathname);
 
   useEffect(() => {
-    const sync = () => setPath(stripBase(window.location.pathname));
+    const sync = () => setPath(window.location.pathname);
     window.addEventListener('popstate', sync);
     window.addEventListener('evox-navigate', sync);
     return () => {
@@ -49,7 +34,7 @@ export function usePathname() {
 export function onSiteClick(event: MouseEvent<HTMLAnchorElement>) {
   if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
   event.preventDefault();
-  navigate(stripBase(event.currentTarget.getAttribute('href') || '/'));
+  navigate(event.currentTarget.getAttribute('href') || '/');
 }
 
 export function adminPath(page: string) {

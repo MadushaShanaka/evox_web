@@ -14,7 +14,6 @@ import {
 } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
 import type { AdminPage } from '@/components/admin/AdminLayout';
-import { withBase } from '@/lib/nav';
 
 interface DashboardProps {
   onNavigate: (page: AdminPage) => void;
@@ -145,7 +144,7 @@ export function AdminDashboard({ onNavigate }: DashboardProps) {
             >
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-surface-muted">
                 {project.image ? (
-                  <img src={withBase(project.image)} alt="" className="h-full w-full rounded-lg object-cover" />
+                  <img src={project.image} alt="" className="h-full w-full rounded-lg object-cover" />
                 ) : (
                   <FolderKanban size={18} className="text-faint" />
                 )}
