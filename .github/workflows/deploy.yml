@@ -36,6 +36,16 @@ jobs:
           # '/evox_web' for https://<user>.github.io/evox_web/, '' with a custom domain.
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
+      # Fail instead of publishing a blank page if the build ignored the base path.
+      - name: Check asset paths
+        run: |
+          grep -q "src=\"${BASE_PATH}/assets/" dist/index.html || {
+            echo "::error::dist/index.html does not load assets from '${BASE_PATH}/assets/'. Check 'base' in vite.config.ts."
+            exit 1
+          }
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+
       # GitHub Pages serves 404.html for unknown paths, so deep links such as
       # /careers/some-job load the app instead of a GitHub error page.
       - run: cp dist/index.html dist/404.html
