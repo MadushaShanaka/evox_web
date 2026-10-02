@@ -15,6 +15,7 @@ import { Modal, ConfirmDialog, useToast } from '@/components/ui/Modal';
 import { TextField, TextArea, Toggle } from '@/components/ui/Field';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import { reportProjectSave } from '@/lib/storage';
+import { withBase } from '@/lib/nav';
 
 const emptyDirector: Director = {
   id: '',
@@ -120,7 +121,7 @@ export function DirectorsManager() {
             {/* Photo */}
             <div className="w-16 h-16 rounded-full bg-surface-muted flex-shrink-0 overflow-hidden flex items-center justify-center">
               {dir.image ? (
-                <img src={dir.image} alt="" className="w-full h-full object-cover" />
+                <img src={withBase(dir.image)} alt="" className="w-full h-full object-cover" />
               ) : (
                 <Users size={24} className="text-faint" />
               )}

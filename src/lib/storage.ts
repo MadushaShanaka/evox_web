@@ -1,4 +1,5 @@
 import type { AppData } from '@/types';
+import { withBase } from '@/lib/nav';
 
 const STORAGE_KEY = 'evox_cms_data';
 
@@ -6,7 +7,7 @@ export const CMS_SECTIONS = ['projects', 'directors', 'careers', 'company', 'add
 export type CmsSection = (typeof CMS_SECTIONS)[number];
 
 async function fetchJson(file: string) {
-  const response = await fetch(`/data/${file}`, { cache: 'no-store' });
+  const response = await fetch(withBase(`/data/${file}`), { cache: 'no-store' });
   if (!response.ok) throw new Error(`Failed to load ${file}`);
   return response.json();
 }

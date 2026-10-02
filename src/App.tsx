@@ -6,7 +6,7 @@ import { AdminLogin } from '@/pages/admin/AdminLogin';
 import { AdminPanel } from '@/pages/AdminPanel';
 import { PublicSite } from '@/pages/PublicSite';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
-import { navigate, usePathname } from '@/lib/nav';
+import { navigate, usePathname, withBase } from '@/lib/nav';
 import { applySeo } from '@/lib/seo';
 
 function AppContent() {
@@ -20,7 +20,7 @@ function AppContent() {
       applySeo(data.settings.title, data.settings.metaDescription);
       const favicon = document.querySelector('link[rel="icon"]');
       if (favicon && data.branding.favicon) {
-        favicon.setAttribute('href', data.branding.favicon);
+        favicon.setAttribute('href', withBase(data.branding.favicon));
       }
     }
   }, [data, path]);
