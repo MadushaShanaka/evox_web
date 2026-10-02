@@ -5,6 +5,7 @@ import type { Project } from '@/types';
 import { Badge } from '@/components/ui/Badge';
 import { Reveal } from '@/components/ui/Reveal';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { withBase } from '@/lib/nav';
 
 const statusTone = {
   completed: 'success',
@@ -24,7 +25,7 @@ function ProjectCard({ project }: { project: Project }) {
           <>
             {!loaded && <div className="absolute inset-0 animate-pulse bg-surface-muted" />}
             <img
-              src={project.image}
+              src={withBase(project.image)}
               alt={project.title}
               onLoad={() => setLoaded(true)}
               onError={() => setFailed(true)}

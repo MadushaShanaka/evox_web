@@ -1,18 +1,19 @@
 import type { AppData } from '@/types';
+import { withBase } from '@/lib/nav';
 
 const STORAGE_KEY = 'evox_cms_data';
 
 export async function fetchSeedData(): Promise<AppData> {
   const [projects, directors, careers, company, address, branding, social, settings] =
     await Promise.all([
-      fetch('/data/projects.json').then((r) => r.json()),
-      fetch('/data/directors.json').then((r) => r.json()),
-      fetch('/data/careers.json').then((r) => r.json()),
-      fetch('/data/company.json').then((r) => r.json()),
-      fetch('/data/address.json').then((r) => r.json()),
-      fetch('/data/branding.json').then((r) => r.json()),
-      fetch('/data/social.json').then((r) => r.json()),
-      fetch('/data/settings.json').then((r) => r.json()),
+      fetch(withBase('/data/projects.json')).then((r) => r.json()),
+      fetch(withBase('/data/directors.json')).then((r) => r.json()),
+      fetch(withBase('/data/careers.json')).then((r) => r.json()),
+      fetch(withBase('/data/company.json')).then((r) => r.json()),
+      fetch(withBase('/data/address.json')).then((r) => r.json()),
+      fetch(withBase('/data/branding.json')).then((r) => r.json()),
+      fetch(withBase('/data/social.json')).then((r) => r.json()),
+      fetch(withBase('/data/settings.json')).then((r) => r.json()),
     ]);
 
   return {

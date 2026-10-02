@@ -4,6 +4,9 @@ import { fileURLToPath, URL } from 'node:url';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // Path the site is served from. The GitHub Pages workflow sets BASE_PATH
+  // (e.g. '/evox_web'); local builds are served from the root.
+  base: `${process.env.BASE_PATH ?? ''}/`,
   plugins: [react()],
   resolve: {
     alias: {

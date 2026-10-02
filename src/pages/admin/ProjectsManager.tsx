@@ -15,6 +15,7 @@ import type { Project } from '@/types';
 import { Modal, ConfirmDialog, useToast } from '@/components/ui/Modal';
 import { TextField, TextArea, SelectField, Toggle } from '@/components/ui/Field';
 import { ImageUpload } from '@/components/ui/ImageUpload';
+import { withBase } from '@/lib/nav';
 
 const emptyProject: Project = {
   id: '',
@@ -122,7 +123,7 @@ export function ProjectsManager() {
             {/* Image */}
             <div className="w-20 h-20 rounded-lg bg-surface-muted flex-shrink-0 overflow-hidden flex items-center justify-center">
               {project.image ? (
-                <img src={project.image} alt="" className="w-full h-full object-cover" />
+                <img src={withBase(project.image)} alt="" className="w-full h-full object-cover" />
               ) : (
                 <FolderKanban size={24} className="text-faint" />
               )}

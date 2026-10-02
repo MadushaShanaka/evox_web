@@ -25,6 +25,19 @@ The site runs at http://localhost:5173. No environment variables are needed.
 | `npm run lint`      | Run ESLint                                   |
 | `npm run typecheck` | Type-check with TypeScript (no output files) |
 
+## Deployment
+
+The site deploys to GitHub Pages automatically on every push to `main`, using
+[.github/workflows/deploy.yml](.github/workflows/deploy.yml). It is published at
+https://madushashanaka.github.io/evox_web/.
+
+One-time setup: in the GitHub repo, go to **Settings → Pages** and set
+**Source** to **GitHub Actions**.
+
+The workflow sets the base path (`/evox_web`) at build time, so internal links,
+data files and images work under the subpath. Use `withBase()` from
+[src/lib/nav.ts](src/lib/nav.ts) for any new root-relative link or image URL.
+
 ## Routes
 
 - `/` — public website (hero, about, capabilities, projects, directors, contact)
